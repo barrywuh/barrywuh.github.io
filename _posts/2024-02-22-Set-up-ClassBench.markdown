@@ -4,11 +4,11 @@ title:  "Set up ClassBench"
 date:   2024-02-22 12:22:47 +1300
 categories: networking tools
 ---
-[ClassBench] is a legacy program which generates filter sets and traces matching these filter sets. It was created almost two decades ago and not maintained any longer. In spite of this, many researchers in the academia still use it for their experiments related to router/switch. You can download its source code and try to run it. But since it was developed 20 years ago, you will probably run into a lot of errors (compilation ones and others). I was in the same situation and I asked around for help. Finally, a friend who is a Linux expert helped me. His suggestion is to set up an environment as if we were in early 2000's. We tried separately and it works. 
+[ClassBench] is a legacy program that generates filter sets and traces matching these filter sets. It was created almost two decades ago and no longer maintained. In spite of this, many researchers in academia still use it for experiments related to routers/switches. If you download the source code and try to run it, you will be met with errors (compilation ones and others). This is probably because it was developed some 20 years ago. I was in the same situation and asked around for help. Finally, a friend who is a Linux expert offered a solution. His suggestion was to set up an environment as if we were in the early 2000’s. We tested this approach separately and it has worked well. 
 
-The rough idea is to set up a legacy Linux as a virtual machine and compile the souce code and run the program there. It seems to be quite easy to do but it turned out to be not easy. The main challenge comes from we need a way to transfer the source files into the legacy Linux whose web browser is too old and it cannot download the source files directly from a website. Eventually,we use SCP to bypass this issue. 
+In short, one should set up a legacy Linux distribution in a virtual machine and compile the source code to run the program there. It seemed simple but turned out to be quite difficult. The main challenge was that we needed a way to transfer the source files onto the legacy Linux distribution whose web browser is too old to download the source files directly from a website. Eventually, we used SCP to bypass this issue.
 
-Here is a list of steps you can follow:
+Here are a list of steps you can follow:
 
 *Download an old Ubuntu server from [Ubuntu_old_release].
 *Create a VM in VirtualBox with the downloaded .iso file 
