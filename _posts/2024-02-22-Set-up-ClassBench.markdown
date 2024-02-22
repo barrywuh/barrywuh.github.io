@@ -11,12 +11,15 @@ In short, one should set up a legacy Linux distribution in a virtual machine and
 Here are a list of steps you can follow:
 
 *Download an old Ubuntu server from [Ubuntu_old_release].
+
 *Create a VM in VirtualBox with the downloaded .iso file 
+
 *In order to transfer files from your host OS to the guest OS (legacy Linux), we need to set up SSH server on Linux.
 {% highlight ruby %}
     sudo apt-get install openssh-server
     #You will be asked to insert a CD-rom. Click the CD-ROM icon and choose the iso file you used for installing       #the Linux server. 
 {% endhighlight %}
+
 *Configure the Virtual Box with port forwarding. In Virtual Box, choose Settings>>Network>>Advanced>>port forwarding; add a new rule "ssh" for ssh:
 {% highlight ruby %}
     host IP: 0.0.0.0
@@ -25,36 +28,43 @@ Here are a list of steps you can follow:
     guest port:22
     #NAT is used for Adapter 1: attached to NAT
 {% endhighlight %}
+
 *SCP files from host (e.g., a windows laptop) to the `guest` Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
 {% highlight ruby %}
     scp -P 2233 db_generator.tar.gz user_name@127.0.0.1:/home/user_name
     #Replace user_name as your user name for the Linux
     #scp all other files similarly;
 {% endhighlight %}
+
 *On (guest Linux) unzip all the files received
 {% highlight ruby %}
     tar -zxvf db_generator.tar.gz
     tar -zxvf parameter_files.tar.gz
 {% endhighlight %}
+
 *Install make and other packages on guest OS
 {% highlight ruby %}
     sudo apt-get install make
     sudo apt-get install g++
     sudo apt-get install build-essential
 {% endhighlight %}
+
 *Modify makefile under db_generator (a folder)
 {% highlight ruby %}
     CFLAGS = -g -pg
     ##CFLAGS = -O2
 {% endhighlight %}
+
 *Use "make all" to compile db_generator
 {% highlight ruby %}
     make all
 {% endhighlight %}
+
 *Use `db_generator` to generate a file test1000acl
 {% highlight ruby %}
     db_generator -bc ../parameter_files/acl1_seed 10000 2 -0.5 0.1 test1000acl
 {% endhighlight %}
+
 *On `host` OS copy test1000acl from the Linux
 {% highlight ruby %}
     scp -P 2233 user_name@127.0.0.1:/home/user_name/db_generator/test1000acl .
