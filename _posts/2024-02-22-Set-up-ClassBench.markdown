@@ -4,7 +4,7 @@ title:  "Set up ClassBench"
 date:   2024-02-22 12:22:47 +1300
 categories: networking tools
 ---
-[ClassBench] is a legacy program that generates filter sets and traces matching these filter sets. It was created almost two decades ago and no longer maintained. In spite of this, many researchers in academia still use it for experiments related to routers/switches. If you download the source code and try to run it, you will be met with errors (compilation ones and others). This is probably because it was developed some 20 years ago. I was in the same situation and asked around for help. Finally, a friend who is a Linux expert offered a solution. His suggestion was to set up an environment as if we were in the early 2000’s. We tested this approach separately and it has worked well. 
+[ClassBench] [ClassBench] is a legacy program that generates filter sets and traces matching these filter sets. It was created almost two decades ago and no longer maintained. In spite of this, many researchers in academia still use it for experiments related to routers/switches. If you download the source code and try to run it, you will be met with errors (compilation ones and others). This is probably because it was developed some 20 years ago. I was in the same situation and asked around for help. Finally, a friend who is a Linux expert offered a solution. His suggestion was to set up an environment as if we were in the early 2000’s. We tested this approach separately and it has worked well. 
 
 In short, one should set up a legacy Linux distribution in a virtual machine and compile the source code to run the program there. It seemed simple but turned out to be quite difficult. The main challenge was that we needed a way to transfer the source files onto the legacy Linux distribution whose web browser is too old to download the source files directly from a website. Eventually, we used SCP to bypass this issue.
 
@@ -70,7 +70,7 @@ Here are a list of steps you can follow:
     scp -P 2233 user_name@127.0.0.1:/home/user_name/db_generator/test1000acl .
 {% endhighlight %}
 
-<<[BACK]
+<<[BACK] [BACK]
 
 [BACK]: https://barrywuh.github.io
 [Ubuntu_old_release]: https://old-releases.ubuntu.com/releases/dapper/ubuntu-6.06.2-server-i386.iso
