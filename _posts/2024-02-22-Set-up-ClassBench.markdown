@@ -35,7 +35,7 @@ scp -P 2233 db_generator.tar.gz user_name@127.0.0.1:/home/user_name
 #scp all other files similarly;
 {% endhighlight %}
 
-6.On (guest Linux) unzip all the files received
+6. On (guest Linux) unzip all the files received
 {% highlight ruby %}
 tar -zxvf db_generator.tar.gz
 tar -zxvf parameter_files.tar.gz
@@ -65,7 +65,7 @@ db_generator -bc ../parameter_files/acl1_seed 10000 2 -0.5 0.1 test1000acl
 {% endhighlight %}
 
 
-11 On `host` OS copy test1000acl from the Linux
+11. On `host` OS copy test1000acl from the Linux
 {% highlight ruby %}
   scp -P 2233 user_name@127.0.0.1:/home/user_name/db_generator/test1000acl .
 {% endhighlight %}
