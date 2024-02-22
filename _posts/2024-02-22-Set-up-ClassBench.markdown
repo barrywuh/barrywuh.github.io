@@ -24,7 +24,7 @@ sudo apt-get install openssh-server
     guest port:22
 #NAT is used for Adapter 1: attached to NAT
 {% endhighlight %}
-5.  SCP files from host (e.g., a windows laptop) to the guest Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
+5.  SCP files from host (e.g., a windows laptop) to the `guest` Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
 {% highlight ruby %}
 scp -P 2233 db_generator.tar.gz user_name@127.0.0.1:/home/user_name
 #Replace user_name as your user name for the Linux
@@ -50,7 +50,7 @@ CFLAGS = -g -pg
 {% highlight ruby %}
 make all
 {% endhighlight %}
-10. Use db_generator to generate a file test1000acl
+10. Use `db_generator` to generate a file test1000acl
 {% highlight ruby %}
 db_generator -bc ../parameter_files/acl1_seed 10000 2 -0.5 0.1 test1000acl
 {% endhighlight %}
