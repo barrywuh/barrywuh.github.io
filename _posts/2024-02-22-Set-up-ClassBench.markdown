@@ -9,6 +9,7 @@ categories: networking tools
 The rough idea is to set up a legacy Linux as a virtual machine and compile the souce code and run the program there. It seems to be quite easy to do but it turned out to be not easy. The main challenge comes from we need a way to transfer the source files into the legacy Linux whose web browser is too old and it cannot download the source files directly from a website. Eventually,we use SCP to bypass this issue. 
 
 Here is a list of steps you can follow:
+
 *Download an old Ubuntu server from [Ubuntu_old_release].
 *Create a VM in VirtualBox with the downloaded .iso file 
 *In order to transfer files from your host OS to the guest OS (legacy Linux), we need to set up SSH server on Linux.
