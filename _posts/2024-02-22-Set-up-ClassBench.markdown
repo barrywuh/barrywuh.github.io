@@ -9,17 +9,14 @@ categories: jekyll update
 The rough idea is to set up a legacy Linux as a virtual machine and compile the souce code and run the program there. It seems to be quite easy to do but it turned out to be not easy. The main challenge comes from we need a way to transfer the source files into the legacy Linux whose web browser is too old and it cannot download the source files directly from a website. Eventually,we use SCP to bypass this issue. 
 
 Here is a list of steps you can follow:
-Step 1. Download an old Ubuntu server from [Ubuntu_old_release].
-
-Step 2. Create a VM in VirtualBox with the downloaded .iso file 
-
-Step 3. In order to transfer files from your host OS to the guest OS (legacy Linux), we need to set up SSH server on Linux.
+1. Download an old Ubuntu server from [Ubuntu_old_release].
+2. Create a VM in VirtualBox with the downloaded .iso file 
+3. In order to transfer files from your host OS to the guest OS (legacy Linux), we need to set up SSH server on Linux.
 {% highlight ruby %}
 sudo apt-get install openssh-server
 #You will be asked to insert a CD-rom. Click the CD-ROM icon and choose the iso file you used for installing the Linux server. 
 {% endhighlight %}
-
-Step 4. Configure the Virtual Box with port forwarding. In Virtual Box, choose Settings>>Network>>Advanced>>port forwarding; add a new rule "ssh" for ssh:
+4. Configure the Virtual Box with port forwarding. In Virtual Box, choose Settings>>Network>>Advanced>>port forwarding; add a new rule "ssh" for ssh:
 {% highlight ruby %}
     host IP: 0.0.0.0
     host port: 2233
@@ -27,45 +24,37 @@ Step 4. Configure the Virtual Box with port forwarding. In Virtual Box, choose S
     guest port:22
 #NAT is used for Adapter 1: attached to NAT
 {% endhighlight %}
-
-Step 5. SCP files from host (e.g., a windows laptop) to the guest Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
+5. SCP files from host (e.g., a windows laptop) to the guest Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
 {% highlight ruby %}
 scp -P 2233 db_generator.tar.gz user_name@127.0.0.1:/home/user_name
 #Replace user_name as your user name for the Linux
 #scp all other files similarly;
 {% endhighlight %}
-
-Step 6. On (guest Linux) unzip all the files received
+6. On (guest Linux) unzip all the files received
 {% highlight ruby %}
 tar -zxvf db_generator.tar.gz
 tar -zxvf parameter_files.tar.gz
 {% endhighlight %}
-
-Step 7. Install make and other packages on guest OS
+7. Install make and other packages on guest OS
 {% highlight ruby %}
 sudo apt-get install make
 sudo apt-get install g++
 sudo apt-get install build-essential
 {% endhighlight %}
-
-Step 8. Modify makefile under db_generator (a folder)
+8. Modify makefile under db_generator (a folder)
 {% highlight ruby %}
 CFLAGS = -g -pg
 ##CFLAGS = -O2
 {% endhighlight %}
- 
-Step 9. Use "make all" to compile db_generator
+9. Use "make all" to compile db_generator
 {% highlight ruby %}
 make all
 {% endhighlight %}
- 
-Step 10. Use db_generator to generate a file test1000acl
+10. Use db_generator to generate a file test1000acl
 {% highlight ruby %}
 db_generator -bc ../parameter_files/acl1_seed 10000 2 -0.5 0.1 test1000acl
 {% endhighlight %}
-
-
-Step 11. On `host` OS copy test1000acl from the Linux
+11. On `host` OS copy test1000acl from the Linux
 {% highlight ruby %}
   scp -P 2233 user_name@127.0.0.1:/home/user_name/db_generator/test1000acl .
 {% endhighlight %}
