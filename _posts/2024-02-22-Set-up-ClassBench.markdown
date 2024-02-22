@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Set up ClassBench"
 date:   2024-02-22 12:22:47 +1300
 categories: jekyll update
 ---
