@@ -4,61 +4,71 @@ title:  "Set up ClassBench"
 date:   2024-02-22 12:22:47 +1300
 categories: jekyll update
 ---
-ClassBench is a legacy program which generates filter sets and traces matching these filter sets. It was created almost two decades ago and not maintained any longer. In spite of this, many researchers in the academia still use it for their experiments. 
-1. setup a legacy linux OS
-1.1 use virtual box
-1.2 download an old ubuntu server
-  https://old-releases.ubuntu.com/releases/dapper/ubuntu-6.06.2-server-i386.iso
-1.3 create a VM in VirtualBox
-2 copy files
-2.1 set up SSH server at linux
+[ClassBench] is a legacy program which generates filter sets and traces matching these filter sets. It was created almost two decades ago and not maintained any longer. In spite of this, many researchers in the academia still use it for their experiments. You can download its source code and try to run it. But since it was developed 20 years ago, you will probably run into a lot of errors (compilation ones and others). I was in the same situation and I asked around for help. Finally, a friend who is a Linux expert helped me. His suggestion is to set up an environment as if we were in early 2000's. We tried separately and it works. 
+
+The rough idea is to set up a legacy Linux as a virtual machine and compile the souce code and run the program there. It seems to be quite easy to do but it turned out to be not easy. The main challenge comes from we need a way to transfer the source files into the legacy Linux whose web browser is too old and it cannot download the source files directly from a website. Eventually,we use SCP to bypass this issue. 
+
+Here is a list of steps you can follow:
+1. Download an old Ubuntu server from [Ubuntu_old_release].
+
+2. Create a VM in VirtualBox with the downloaded .iso file 
+
+3. In order to transfer files from your host OS to the guest OS (legacy Linux), we need to set up SSH server on Linux.
+{% highlight ruby %}
 sudo apt-get install openssh-server
-you will be asked to insert a CD-rom. Click the CD-ROM icon and choose the iso file you used for installing the Linux server. 
-2.2 configure virtual box with port forwarding
-    in Virtual Box, choose Settings>>Network>>Advanced>>port forwarding
-    add a new rule "ssh" for ssh:
+#You will be asked to insert a CD-rom. Click the CD-ROM icon and choose the iso file you used for installing the Linux server. 
+{% endhighlight %}
+
+4. Configure the Virtual Box with port forwarding. In Virtual Box, choose Settings>>Network>>Advanced>>port forwarding; add a new rule "ssh" for ssh:
+{% highlight ruby %}
     host IP: 0.0.0.0
     host port: 2233
     guest IP: blank
     guest port:22
-(NAT is used for Adapter 1: attached to NAT)
-2.3 scp files from host (windows laptop) to guest
-scp -P 2233 db_generator.tar.gz wu@127.0.0.1:/home/wu
-scp all other files similarly;
-(scp might not work due to key issue, delete the line in c:\users\xwu25\.ssh\know_hosts, and try again)
-2.4 on guest OS unzip all the files received
-tar -zxvf db_generator.tar.gz
-2.5 install make on guest OS
-sudo apt-get install make
-2.5 install g++ and build-essentials on guest OS
-sudo apt-get install g++
-sudo apt-get install build-essential
-2.6 modify makefile in db_generator (a folder)
-use CFLAGS = -g -pg and remove the current setting
-2.7 use "make all" to compile db_generator
-the end. 
-2.8 use db_generator to generate a file test1000acl and 
-2.9 on host Laptop copy test1000acl to the current directory
-  scp -P 2233 wu@127.0.0.1:/home/wu/db_generator/test1000acl .
-
-
-
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+#NAT is used for Adapter 1: attached to NAT
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+5. SCP files from host (e.g., a windows laptop) to the guest Linux, assuming you've downloaded db_generator.tar.gz and parameter_files.tar.gz from [ClassBench].
+{% highlight ruby %}
+scp -P 2233 db_generator.tar.gz user_name@127.0.0.1:/home/user_name
+#Replace user_name as your user name for the Linux
+#scp all other files similarly;
+{% endhighlight %}
 
-[jekyll-docs]: http://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+6.On (guest Linux) unzip all the files received
+{% highlight ruby %}
+tar -zxvf db_generator.tar.gz
+tar -zxvf parameter_files.tar.gz
+{% endhighlight %}
+
+7. Install make and other packages on guest OS
+{% highlight ruby %}
+sudo apt-get install make
+sudo apt-get install g++
+sudo apt-get install build-essential
+{% endhighlight %}
+
+8. Modify makefile under db_generator (a folder)
+{% highlight ruby %}
+CFLAGS = -g -pg
+##CFLAGS = -O2
+{% endhighlight %}
+ 
+9. Use "make all" to compile db_generator
+{% highlight ruby %}
+make all
+{% endhighlight %}
+ 
+10. Use db_generator to generate a file test1000acl
+{% highlight ruby %}
+db_generator -bc ../parameter_files/acl1_seed 10000 2 -0.5 0.1 test1000acl
+{% endhighlight %}
+
+
+11 On `host` OS copy test1000acl from the Linux
+{% highlight ruby %}
+  scp -P 2233 user_name@127.0.0.1:/home/user_name/db_generator/test1000acl .
+{% endhighlight %}
+
+[Ubuntu_old_release]: https://old-releases.ubuntu.com/releases/dapper/ubuntu-6.06.2-server-i386.iso
+[ClassBench]: https://www.arl.wustl.edu/classbench/
