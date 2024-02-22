@@ -2,9 +2,9 @@
 layout: post
 title:  "Set up ClassBench"
 date:   2024-02-22 12:22:47 +1300
-categories: jekyll update
+categories: networking tools
 ---
-[ClassBench] is a legacy program which generates filter sets and traces matching these filter sets. It was created almost two decades ago and not maintained any longer. In spite of this, many researchers in the academia still use it for their experiments. You can download its source code and try to run it. But since it was developed 20 years ago, you will probably run into a lot of errors (compilation ones and others). I was in the same situation and I asked around for help. Finally, a friend who is a Linux expert helped me. His suggestion is to set up an environment as if we were in early 2000's. We tried separately and it works. 
+[ClassBench] is a legacy program which generates filter sets and traces matching these filter sets. It was created almost two decades ago and not maintained any longer. In spite of this, many researchers in the academia still use it for their experiments related to router/switch. You can download its source code and try to run it. But since it was developed 20 years ago, you will probably run into a lot of errors (compilation ones and others). I was in the same situation and I asked around for help. Finally, a friend who is a Linux expert helped me. His suggestion is to set up an environment as if we were in early 2000's. We tried separately and it works. 
 
 The rough idea is to set up a legacy Linux as a virtual machine and compile the souce code and run the program there. It seems to be quite easy to do but it turned out to be not easy. The main challenge comes from we need a way to transfer the source files into the legacy Linux whose web browser is too old and it cannot download the source files directly from a website. Eventually,we use SCP to bypass this issue. 
 
