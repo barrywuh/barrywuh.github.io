@@ -21,3 +21,8 @@ markdown: kramdown
 remote_theme: pages-themes/modernist@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
+kramdown:
+  math_engine: mathjax # This tells Kramdown you are using MathJax
+  syntax_highlighter_opts:
+    block_delimiter: "```"
+    line_numbers: false
