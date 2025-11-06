@@ -10,4 +10,4 @@ $$E=MC^2$$
 
 $$A(n) = \sum_{i=1}^{n}f(n)$$
 
-<div>$A(n) = \sum_{i=1}^{n}f(n)$</div>
+$A(n) = \sum_{i=1}^{n}f(n)$
