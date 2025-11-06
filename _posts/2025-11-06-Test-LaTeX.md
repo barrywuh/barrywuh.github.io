@@ -10,5 +10,5 @@ $$E=MC^2$$
 
 $$A(n) = \sum_{i=1}^{n}f(n)$$
 
-For inline equations, use '<div>$...$</div>' to wrap up them. 
+For inline equations, use "\<div\>$...$\</div\>" to wrap up them. 
 <div>$A(n) = \sum_{i=1}^{n}f(n)$</div>
